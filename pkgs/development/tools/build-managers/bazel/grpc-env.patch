@@ -1,0 +1,26 @@
+From b5c5e6069a28d7fa8bd55d053ef7783ee98f3d6f Mon Sep 17 00:00:00 2001
+From: Diego Pontoriero <dpontor@gmail.com>
+Date: Wed, 30 Aug 2017 15:28:30 -0700
+Subject: [PATCH] Add environment to cp command.
+
+---
+ third_party/grpc/build_defs.bzl | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/third_party/grpc/build_defs.bzl b/third_party/grpc/build_defs.bzl
+index 521ea43c3..7fb6cef28 100644
+--- a/third_party/grpc/build_defs.bzl
++++ b/third_party/grpc/build_defs.bzl
+@@ -32,7 +32,8 @@ def _gensource_impl(ctx):
+   ctx.action(
+       command = "cp '%s' '%s'" % (srcdotjar.path, ctx.outputs.srcjar.path),
+       inputs = [srcdotjar],
+-      outputs = [ctx.outputs.srcjar])
++      outputs = [ctx.outputs.srcjar],
++      use_default_shell_env=True)
+ 
+ _java_grpc_gensource = rule(
+     attrs = {
+-- 
+2.14.1
+

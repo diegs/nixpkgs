@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, jdk, zip, unzip, bash, makeWrapper, which }:
+{ stdenv, fetchurl, jdk, zip, unzip, bash, makeWrapper, which, python }:
 
 stdenv.mkDerivation rec {
 
-  version = "0.4.5";
+  version = "0.5.4";
 
   meta = with stdenv.lib; {
     homepage = https://github.com/bazelbuild/bazel/;
@@ -16,8 +16,10 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
-    sha256 = "0asmq3kxnl4326zhgh13mvcrc8jvmiswjj4ymrq0943q4vj7nwrb";
+    sha256 = "1jdb8zbgafhz2qi0ajk34845kpmfhxchdimvwkq6lkb1159v0mr1";
   };
+
+  patches = [ ./grpc-env.patch ];
 
   sourceRoot = ".";
 
@@ -43,6 +45,7 @@ stdenv.mkDerivation rec {
     unzip
     makeWrapper
     which
+    python
   ];
 
   # These must be propagated since the dependency is hidden in a compressed
